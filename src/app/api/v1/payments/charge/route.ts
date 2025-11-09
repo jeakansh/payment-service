@@ -14,7 +14,7 @@ type Body = {
 };
 
 export async function POST(req: Request) {
-  const idemp = req.headers.get('idempotency-key') ?? '450';
+  const idemp = req.headers.get('idempotency-key') ?? '451';
   if (!idemp) return NextResponse.json({ error: 'Idempotency-Key required' }, { status: 400 });
 
   const body = (await req.json().catch(() => ({}))) as Body;

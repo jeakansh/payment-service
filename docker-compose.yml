@@ -1,0 +1,22 @@
+# docker-compose.yml (development)
+version: "3.8"
+
+services:
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev   # use the Dockerfile.dev example from earlier
+    image: nextjs-dev:latest
+    command: ["npm", "run", "dev"]   # runs Next dev server (hot reload)
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:4000
+    volumes:
+      - ./:/app                       # mount project
+      - /app/node_modules             # keep container's node_modules (avoid host overwrite)
+    depends_on: []
+    # optional: useful for IDEs or debugging
+    stdin_open: true
+    tty: true
